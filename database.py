@@ -25,9 +25,9 @@ class VendingDatabase:
             return []
 
 
-    def get_item_price(self, item):
-        """Returns the price of an item."""
-        return self.execute_query("SELECT price FROM inventory WHERE item=?", (item))
+    # def get_item_price(self, item):
+    #     """Returns the price of an item."""
+    #     return self.execute_query("SELECT price FROM inventory WHERE item=?", (item))
 
     def check_stock(self, item):
         """Checks available stock."""
@@ -65,7 +65,7 @@ def initialize_database():
         ('Apple', 20, 3),
         ('Yogurt', 25, 7),
         ('Chips', 30, 3),
-        ('Soda', 50, 8)
+        ('Soda', 50, 10)
     ])
     conn.commit()
     conn.close()

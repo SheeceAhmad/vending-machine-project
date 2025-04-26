@@ -1,6 +1,7 @@
 from fsm import VendingMachineFSM
 from database import VendingDatabase,initialize_database
-
+   
+    
 def run_vending_machine():
     initialize_database()
     db = VendingDatabase()  # Initialize the database
@@ -40,6 +41,12 @@ def run_vending_machine():
             # If money is sufficient, dispense item and complete transaction
             if fsm.state == 'sufficient_money':
                 fsm.dispense_item()  # Dispense the item
+
+                choice = input("\nWould you like to shop more? (yes/no): ").strip().lower()
+                if choice != "yes":
+                    print("Thank you for using the vending machine. Goodbye!")
+                    break
+                
                 fsm.complete_transaction()  # Complete the transaction
 
             # If money is insufficient, ask for additional money
@@ -64,3 +71,4 @@ def run_vending_machine():
 
 if __name__ == "__main__":
     run_vending_machine()
+

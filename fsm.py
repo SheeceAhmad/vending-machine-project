@@ -1,4 +1,5 @@
 from transitions import Machine
+import sys
 
 class VendingMachineFSM:
     def __init__(self, db):
@@ -39,17 +40,20 @@ class VendingMachineFSM:
         return self.money_inserted < self.selected_item[1]
 
     def dispense_item(self):
-        if self.selected_item:
-            item_name, price, stock = self.selected_item
-            print(f"Dispensing {item_name}. Change: {self.money_inserted - price}¢.")
-            # Update stock only once here after the item is dispensed
-            self.db.update_stock(item_name)
-            self.complete_transaction()
-        
+        item_name, price, stock = self.selected_item
+        print(f"Dispensing {item_name}. Change: {self.money_inserted - price}¢.")
+        self.db.update_stock(item_name)        
 
     def complete_transaction(self, event_data=None):
         # Finalize the transaction, regardless of the outcome
         print(f"Transaction completed. Dispensing item.")
+        print(f"Would you like to shop more ?")
+
+        shopmore = int(input("\nSelect an item by number (or 0 to quit): "))
+        if shopmore == 0:
+          print("Exiting vending machine...")
+          sys.exit
+          
         self.go_idle()
 
     def go_idle(self):
